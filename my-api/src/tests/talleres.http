@@ -1,0 +1,116 @@
+### Antes de empezar: npm run migrate (crea los ids 1, 2 y 3; el id 2 tiene cupo 2)
+
+### ---------- Pregunta 1 ----------
+
+### Listar (ordenado por fecha)
+GET http://127.0.0.1:3006/talleres
+
+###
+GET http://127.0.0.1:3006/talleres/1
+
+###
+POST http://127.0.0.1:3006/talleres
+Content-Type: application/json
+
+{
+  "titulo": "Registro de prueba",
+  "fecha": "{{$localDatetime 'YYYY-MM-DD' 10 d}}",
+  "capacidad": 15
+}
+
+### Validación: titulo vacío (400)
+POST http://127.0.0.1:3006/talleres
+Content-Type: application/json
+
+{
+  "titulo": "   ",
+  "fecha": "{{$localDatetime 'YYYY-MM-DD' 10 d}}",
+  "capacidad": 15
+}
+
+###
+PUT http://127.0.0.1:3006/talleres/3
+Content-Type: application/json
+
+{
+  "titulo": "Registro actualizado",
+  "fecha": "{{$localDatetime 'YYYY-MM-DD' 20 d}}",
+  "capacidad": 50
+}
+
+### Validación: titulo vacío al actualizar (400)
+PUT http://127.0.0.1:3006/talleres/3
+Content-Type: application/json
+
+{
+  "titulo": "",
+  "fecha": "{{$localDatetime 'YYYY-MM-DD' 20 d}}",
+  "capacidad": 50
+}
+
+### Eliminar el registro creado arriba (normalmente el id 4)
+DELETE http://127.0.0.1:3006/talleres/4
+
+### Adicional: id inexistente (404)
+GET http://127.0.0.1:3006/talleres/999
+
+### Adicional: eliminar id inexistente (404)
+DELETE http://127.0.0.1:3006/talleres/999
+
+### ---------- Pregunta 2 ----------
+
+###
+POST http://127.0.0.1:3006/talleres/2/reservas
+Content-Type: application/json
+
+{
+  "nombreAlumno": "Ana Torres",
+  "correo": "ana@aloe.ulima.edu.pe"
+}
+
+### Segunda reserva en el id 2: llena el cupo
+POST http://127.0.0.1:3006/talleres/2/reservas
+Content-Type: application/json
+
+{
+  "nombreAlumno": "Luis Ramos",
+  "correo": "luis@aloe.ulima.edu.pe"
+}
+
+### Detalle con reservas y cuposDisponibles = 0
+GET http://127.0.0.1:3006/talleres/2
+
+### Nice to have: mismo correo en el mismo registro (409)
+POST http://127.0.0.1:3006/talleres/2/reservas
+Content-Type: application/json
+
+{
+  "nombreAlumno": "Ana Torres",
+  "correo": "ana@aloe.ulima.edu.pe"
+}
+
+### Nice to have: sin cupo (409)
+POST http://127.0.0.1:3006/talleres/2/reservas
+Content-Type: application/json
+
+{
+  "nombreAlumno": "Carla Díaz",
+  "correo": "carla@aloe.ulima.edu.pe"
+}
+
+### Nice to have: falta un campo (400)
+POST http://127.0.0.1:3006/talleres/1/reservas
+Content-Type: application/json
+
+{
+  "nombreAlumno": "Sin correo"
+}
+
+### Nice to have: padre inexistente (404)
+POST http://127.0.0.1:3006/talleres/999/reservas
+Content-Type: application/json
+
+{
+  "nombreAlumno": "Pedro",
+  "correo": "pedro@aloe.ulima.edu.pe"
+}

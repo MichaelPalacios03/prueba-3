@@ -1,0 +1,47 @@
+/* Header */
+header {
+  background-color: #202024;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #8257e5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #00b37e;
+  letter-spacing: 1px;
+}
+
+/* Navegación */
+nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+nav a {
+  color: #c4c4cc;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+nav a:hover {
+  color: #00b37e;
+}
+
+.cart-badge {
+  background-color: #00b37e;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  line-height: 1;
+}

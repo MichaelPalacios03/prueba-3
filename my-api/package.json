@@ -1,0 +1,25 @@
+{
+  "name": "my-api",
+  "version": "1.0.0",
+  "description": "Examen 2 - Variante C (talleres)",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --env-file=../../tmp/variante-c-postgres/conexion.env index.js",
+    "dev": "node --env-file=../../tmp/variante-c-postgres/conexion.env --watch index.js",
+    "migrate": "node --env-file=../../tmp/variante-c-postgres/conexion.env src/data/migrate-talleres.js"
+  },
+  "dependencies": {
+    "body-parser": "^2.4.0",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "pg": "^8.23.1",
+    "sequelize": "^6.37.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
